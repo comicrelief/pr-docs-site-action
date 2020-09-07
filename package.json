@@ -1,0 +1,29 @@
+{
+  "name": "pr-docs-site-action",
+  "version": "0.1.0",
+  "description": "Create documentation websites from pull requests.",
+  "main": "src/index.js",
+  "repository": "git@github.com:comicrelief/pr-docs-site-action.git",
+  "author": "Comic Relief",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mime": "^2.0.3",
+    "@types/node": "^14.6.4",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@pulumi/aws": "^3.2.1",
+    "@pulumi/pulumi": "^2.9.2",
+    "@types/mime-types": "^2.1.0",
+    "mime": "^2.4.6",
+    "mime-types": "^2.1.27"
+  },
+  "scripts": {
+    "build": "ts-node src/index.ts",
+    "pulumi:login": "pulumi login --cwd src/pulumi s3://pr-docs-website-generator-state-comic-relief",
+    "pulumi:prepare": "pulumi stack --cwd src/pulumi init '$GITHUB_REPOSITORY/$GITHUB_REF'",
+    "pulumi:publish": "pulumi up --cwd src/pulumi --color always",
+    "pulumi:publish:yes": "yarn pulumi:publish --yes"
+  }
+}

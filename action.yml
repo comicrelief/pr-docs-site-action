@@ -1,0 +1,32 @@
+name: 'Deploy Documentation Website'
+description: 'Generates the documentation website and uploads it to S3, using Pulumi.'
+inputs:
+  AWS_REGION:
+    description: AWS Region
+    required: true
+  AWS_ACCESS_KEY_ID:
+    description: AWS Access Key ID
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: AWS Secret Access Key
+    required: true
+  PROJECT_NAME:
+    description: Project Name
+    required: true
+  PULUMI_CONFIG_PASSPHRASE:
+    description: Pulumi Config Passphrase
+    required: true
+  PULUMI_LOCATION:
+    description: Pulumi Location
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    AWS_REGION: ${{ inputs.AWS_REGION }}
+    AWS_ACCESS_KEY_ID: ${{ inputs.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+    PROJECT_NAME: ${{ inputs.PROJECT_NAME }}
+    PULUMI_CONFIG_PASSPHRASE: ${{ inputs.PULUMI_CONFIG_PASSPHRASE }}
+    PULUMI_LOCATION: ${{ inputs.PULUMI_LOCATION }}
